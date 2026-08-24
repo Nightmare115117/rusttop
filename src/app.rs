@@ -11,6 +11,7 @@ impl App {
         }
     }
 
+    #[allow(dead_code)]
     pub fn get_app_status(&self) -> &str {
         return &self.app_status;
     }
@@ -20,6 +21,7 @@ impl App {
         return self.running;
     }
 
+    #[allow(dead_code)]
     pub fn set_app_status(&mut self, app_status: String) {
         self.app_status = app_status;
     } 
