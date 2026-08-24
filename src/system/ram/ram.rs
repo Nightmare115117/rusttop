@@ -27,10 +27,12 @@ impl RAM {
         return self.total - self.cache - self.available;
     }
 
+    #[allow(dead_code)]
     pub fn get_cache(&self) -> f32 {
         return self.cache;
     }
 
+    #[allow(dead_code)]
     pub fn get_available(&self) -> f32 {
         return self.available;
     }
