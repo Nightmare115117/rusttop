@@ -63,7 +63,7 @@ pub fn ejecutar_terminal(terminal: &mut Terminal<CrosstermBackend<Stdout>>, ram:
         frame.render_widget(block_network, layout_disk_network[1]);
     })?;
 
-    return Ok(());
+    return Ok(());//
 }
 
 fn ram_widget(frame: &mut Frame, ram: &RAM, inner: &Rect) {
