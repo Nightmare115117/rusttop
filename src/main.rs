@@ -1,9 +1,8 @@
 mod app;
 mod ui;
 mod events;
-mod system;
 use std::io;
-use crate::system::ram::{
+use rusttop::system::ram::{
     ram::RAM, memory_reader
 };
 use app::App;
