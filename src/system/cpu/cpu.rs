@@ -1,6 +1,6 @@
+#[derive(Debug, Clone, PartialEq)]
 pub struct CPU {
-
-    user: i64,
+    user: u64,
     nice: u64,
     system: u64,
     idle: u64,
@@ -10,59 +10,93 @@ pub struct CPU {
     steal: u64,
     guest: u64,
     guest_nice: u64,
-
-    usage:f64
+    usage: f64,
 }
 
 impl CPU {
-
-    pub fn new() -> CPU {
-        
+    pub fn new(
+        user: u64,
+        nice: u64,
+        system: u64,
+        idle: u64,
+        iowait: u64,
+        irq: u64,
+        softirq: u64,
+        steal: u64,
+        guest: u64,
+        guest_nice: u64,
+    ) -> CPU {
+        CPU {
+            user,
+            nice,
+            system,
+            idle,
+            iowait,
+            irq,
+            softirq,
+            steal,
+            guest,
+            guest_nice,
+            usage: 0.0,
+        }
     }
 
     pub fn get_user(&self) -> u64 {
-        return self.user;
+        self.user
     }
 
     pub fn get_nice(&self) -> u64 {
-        return self.nice;
+        self.nice
     }
 
     pub fn get_system(&self) -> u64 {
-        return self.system;
+        self.system
     }
 
     pub fn get_idle(&self) -> u64 {
-        return self.idle;
+        self.idle
     }
 
     pub fn get_iowait(&self) -> u64 {
-        return self.iowait;
+        self.iowait
     }
 
     pub fn get_irq(&self) -> u64 {
-        return self.irq;
+        self.irq
     }
 
     pub fn get_softirq(&self) -> u64 {
-        return self.softirq;
+        self.softirq
     }
 
     pub fn get_steal(&self) -> u64 {
-        return self.steal;
+        self.steal
     }
 
     pub fn get_guest(&self) -> u64 {
-        return self.guest;
+        self.guest
     }
 
     pub fn get_guest_nice(&self) -> u64 {
-        return self.guest_nice;
+        self.guest_nice
     }
 
-    fn get_total(&self) -> u64 {
-        return self.user + self.nice + self.system + self.idle + self.iowait + self.irq + self.softirq + self.steal + self.guest + self.guest_nice;
+    pub fn get_usage(&self) -> f64 {
+        self.usage
     }
 
-    
+    pub fn get_total(&self) -> u64 {
+        self.user
+            .saturating_add(self.nice)
+            .saturating_add(self.system)
+            .saturating_add(self.idle)
+            .saturating_add(self.iowait)
+            .saturating_add(self.irq)
+            .saturating_add(self.softirq)
+            .saturating_add(self.steal)
+    }
+
+    pub(crate) fn set_usage(&mut self, usage: f64) {
+        self.usage = usage.clamp(0.0, 100.0);
+    }
 }
